@@ -1,11 +1,9 @@
-from abc import ABC
-
 import requests
 from fetch_data_api import ApiConnector
 from pprint import pprint
 
 
-class SuperJobApi(ApiConnector, ABC):
+class SuperJobApi(ApiConnector):
     """Класс для подключения к API superjob.ru"""
     def __init__(self):
         self.api_url = "https://api.superjob.ru/2.0/vacancies/"

@@ -1,11 +1,9 @@
-from abc import ABC
-
 import requests
 from fetch_data_api import ApiConnector
 from pprint import pprint
 
 
-class HhConnectApi(ApiConnector, ABC):
+class HhConnectApi(ApiConnector):
     """Класс для подключения к API hh.ru"""
 
     def __init__(self):
