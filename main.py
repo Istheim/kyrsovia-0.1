@@ -29,8 +29,8 @@ def process_user_input():
                     salary_max = None
                 url = vacancy_data['area']['url']
                 requirement = vacancy_data['snippet']['requirement']
-                # Создаем экземпляр класса Vacancy
-                vacancy_hh = Vacancy(title, salary_min, salary_max, url, requirement)
+                # Создаем экземпляр класса Vacancy для hh.ru
+                vacancy_hh = Vacancy(title, url, salary_min, salary_max, requirement, platform="hh")
                 # Добавляем экземпляры в список job
                 job.append(vacancy_hh)
 
@@ -41,8 +41,8 @@ def process_user_input():
                 salary_max = vacancy_data['payment_to']
                 url = vacancy_data['client']['link']
                 requirement = vacancy_data['candidat']
-                # Создаем экземпляр класса Vacancy
-                vacancy_s = Vacancy(title, salary_min, salary_max, url, requirement)
+                # Создаем экземпляр класса Vacancy для superjob.ru
+                vacancy_s = Vacancy(title, url, salary_min, salary_max, requirement, platform="superjob")
                 # Добавляем экземпляры в список job
                 job.append(vacancy_s)
 
@@ -52,12 +52,18 @@ def process_user_input():
         print("No key")
 
     while True:
+        platform = input("Выберите платформу (hh/superjob): ")
         user_input = input("Введите поисковый запрос: ")
+        user_max_salary = float(input("Введите максимальную стоимость: "))
         # Флаг для отслеживания, найдена ли вакансия
         found = False
 
         for vacancy_all in job:
-            if user_input == vacancy_all.title:
+            if platform.lower() == "hh" and user_input == vacancy_all.title and vacancy_all.platform == "hh" and vacancy_all.salary_max <= user_max_salary:
+                print(vacancy_all)
+                # Установка флага в True, если найдена вакансия
+                found = True
+            elif platform.lower() == "superjob" and user_input == vacancy_all.title and vacancy_all.platform == "superjob" and vacancy_all.salary_max <= user_max_salary:
                 print(vacancy_all)
                 # Установка флага в True, если найдена вакансия
                 found = True
@@ -72,4 +78,6 @@ def process_user_input():
 
 if __name__ == "__main__":
     process_user_input()
+
+
 
